@@ -25,13 +25,13 @@ export type CropperDialogResult = {
   standalone: true,
   imports: [CommonModule, ImageCropperComponent, MatButtonModule, MatDialogModule],
   template: `
-    <h1 mat-dialog-title>Please crop your image</h1>
+    <h1 mat-dialog-title>ครอบตัดรูปภาพของคุณ</h1>
 
     <div mat-dialog-content class="dialog-layout">
       <!-- Sidebar -->
       <div class="sidebar">
-        <h3>Brightness</h3>
-        <label for="brightness">Value: {{ brightness() | number:'1.2-2' }}</label>
+        <h3>ความสว่าง</h3>
+        <label for="brightness">ค่าความสว่าง: {{ brightness() | number:'1.2-2' }}</label>
         <input
           id="brightness"
           type="range"
@@ -41,9 +41,11 @@ export type CropperDialogResult = {
           [value]="brightness()"
           (input)="brightness.set($any($event.target).value)"
       />
-      <button mat-button (click)="resetBrightness()">Reset Brightness</button>
-          <h3>Contrast</h3>
-          <label for="contrast">Value: {{ contrast() | number:'1.2-2' }}</label>
+      <button mat-button class="reset-button" (click)="resetBrightness()">
+          คืนค่า ความสว่าง
+      </button>
+          <h3>คอนทราสต์</h3>
+          <label for="contrast">ค่าคอนทราสต์: {{ contrast() | number:'1.2-2' }}</label>
           <input
             id="contrast"
             type="range"
@@ -53,7 +55,9 @@ export type CropperDialogResult = {
           [value]="contrast()"
           (input)="contrast.set($any($event.target).value)"
       />
-      <button mat-button (click)="resetContrast()">Reset Contrast</button>
+      <button mat-button class="reset-button" (click)="resetContrast()">
+          คืนค่า คอนทราสต์
+      </button>
     </div>
 
     <!-- Cropper + Buttons -->
@@ -72,8 +76,8 @@ export type CropperDialogResult = {
   </div>
 
       <div mat-dialog-actions align="end">
-        <button mat-button class="cancel-button" [mat-dialog-close]="false">Cancel</button>
-        <button mat-button class="done-button" (click)="onDone()" cdkFocusInitial>Done</button>
+        <button mat-button class="cancel-button" [mat-dialog-close]="false">ยกเลิก</button>
+        <button mat-button class="done-button" (click)="onDone()" cdkFocusInitial>เสร็จสิ้น</button>
   `,
   styles: [`
     .dialog-layout {
@@ -109,6 +113,21 @@ export type CropperDialogResult = {
     input[type="range"] {
       width: 100%;
     }
+
+    .reset-button {
+  background-color: #f44336; /* ฟ้า */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 6px 12px;
+  transition: 0.2s ease;
+  text-transform: none;
+}
+
+.reset-button:hover {
+  background-color: #f44336;
+}
+
 
     .cancel-button {
     background-color: #f44336;  /* แดง */

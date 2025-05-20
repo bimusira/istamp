@@ -58,8 +58,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         (change)="fileSelected($event)"
         (click)="inputField.value = ''"
       />
-      <button mat-raised-button (click)="inputField.click()">
-        Select Photo
+      <label>เลือกขนาดรูปภาพ</label>
+      <select (change)="onSizeChange($any($event.target).value)">
+       <option *ngFor="let size of presetSizes; let i = index" [value]="i">
+         {{ size.label }}
+       </option>
+      </select>
+      <button mat-raised-button class="select-button" (click)="inputField.click()">
+        เลือกรูปภาพ
+      </button>
+      <button mat-raised-button class="clear-button" *ngIf="croppedImageURL()" (click)="clearImage()">
+        ลบรูปภาพ
       </button>
     </div>
   `,
@@ -70,6 +79,39 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         flex-direction: column;
         gap: 16px;
         position: relative;
+      }
+
+      .select {
+        padding: 4px;
+        font-size: 14px;
+        border-radius: 4px;
+        margin-bottom: 12px;
+      }
+
+      .clear-button {
+        background-color: #f44336;  /* แดง */
+        color: white;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 6px 16px;
+      transition: 0.2s ease;
+      }
+
+      .clear-button:hover {
+        background-color: #d32f2f;
+      }
+
+      .select-button {
+        background-color: #4caf50;  /* เขียว */
+        color: white;
+        font-weight: bold;
+        border-radius: 4px;
+        padding: 6px 16px;
+        transition: 0.2s ease;
+      }
+
+      .select-button:hover {
+        background-color: #388e3c;
       }
 
       .image-container {
@@ -91,15 +133,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
 })
 export class ImageControlComponent {
-  imageWidth = signal(0);
-  @Input({ required: true }) set width(val: number) {
-    this.imageWidth.set(val);
-  }
+clearImage() {
+  this.croppedImageURL.set(undefined);
+}
 
-  imageHeight = signal(0);
-  @Input({ required: true }) set height(val: number) {
-    this.imageHeight.set(val);
-  }
+presetSizes = [
+  { label: 'แสตมป์ (3.3*3ซม)', width: 390, height: 354 },
+  { label: 'Template (13.3*9.5ซม)', width: 503, height: 359 },
+];
+
+selectedSize = signal(this.presetSizes[0]);
+
+imageWidth = computed(() => this.selectedSize().width);
+imageHeight = computed(() => this.selectedSize().height);
+
 
   imagePath = signal('');
   @Input({ required: true }) set path(val: string) {
@@ -164,5 +211,9 @@ export class ImageControlComponent {
     const downloadUrl = await getDownloadURL(uploadTask.ref);
     this.croppedImageURL.set(downloadUrl);
     this.uploading.set(false);
+  }
+
+  onSizeChange(index: number) {
+    this.selectedSize.set(this.presetSizes[+index]);
   }
 }
