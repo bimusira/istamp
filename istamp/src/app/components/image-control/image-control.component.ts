@@ -129,7 +129,10 @@ export class ImageControlComponent {
           width: this.imageWidth(),
           height: this.imageHeight(),
         },
-        width: '500px',
+        width: '1000px',
+        height: '1000px',
+        maxWidth: '95vw',
+        maxHeight: '95vh',
       });
 
       dialogRef
