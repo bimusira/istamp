@@ -151,7 +151,7 @@ export class ImageControlComponent {
     });
   }
 
-  private storage = inject(Storage);
+  storage = inject(Storage);
   zone = inject(NgZone);
 
   async uploadImage(blob: Blob) {
