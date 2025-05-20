@@ -57,6 +57,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         type="file"
         (change)="fileSelected($event)"
         (click)="inputField.value = ''"
+         accept="image/*"
       />
       <label>เลือกขนาดรูปภาพ</label>
       <select (change)="onSizeChange($any($event.target).value)">
