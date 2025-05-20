@@ -5,6 +5,7 @@ import { ImageControlComponent } from './components/image-control/image-control.
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    // RouterOutlet,
   ],
   template: `
     <mat-toolbar color="primary"> Angular Image Cropper </mat-toolbar>
@@ -46,6 +48,13 @@ import { FormsModule } from '@angular/forms';
         (imageReady)="imageReady($event)"
       />
     </div>
+   <!-- <nav>
+    <ul>
+      <li><a routerLink="staff" routerLinkActive="active">staff</a></li>
+      <li><a routerLink="customer" routerLinkActive="active">customer</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet> -->
   `,
   styles: [
     `
