@@ -18,30 +18,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
   ],
   template: `
-    <mat-toolbar color="primary"> Angular Image Cropper </mat-toolbar>
-
-    <mat-form-field>
-      <input
-        ngModel
-        (ngModelChange)="height.set($event)"
-        matInput
-        placeholder="Enter image height..."
-      />
-    </mat-form-field>
-
-    <mat-form-field>
-      <input
-        ngModel
-        matInput
-        (ngModelChange)="width.set($event)"
-        placeholder="Enter image width..."
-      />
-    </mat-form-field>
+    <mat-toolbar color="primary"> จัดการรูปภาพ </mat-toolbar>
 
     <div class="container">
       <app-image-control
-        [width]="width()"
-        [height]="height()"
         path="/profile-images/my-image"
         (imageReady)="imageReady($event)"
       />
