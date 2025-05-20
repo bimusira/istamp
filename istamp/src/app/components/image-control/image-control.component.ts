@@ -201,7 +201,7 @@ imageHeight = computed(() => this.selectedSize().height);
     });
   }
 
-  storage = inject(Storage);
+  private storage = inject(Storage);
   zone = inject(NgZone);
 
   async uploadImage(blob: Blob) {
