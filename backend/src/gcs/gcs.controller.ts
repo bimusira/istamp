@@ -16,6 +16,11 @@ export class GcsController {
     return { count: urls.length, images: urls }
   }
 
+  @Delete('delete-file')
+  async deleteFile(@Param('fileName') fileName: string) {
+    return this.gcsService.deleteFile(fileName);
+  }
+  
 //   @Post('upload')
 //   upload() {
 //     return this.gcsService.uploadTestJson();
