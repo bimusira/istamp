@@ -27,7 +27,7 @@ export type CropperDialogResult = {
   template: `
     <h1 mat-dialog-title>ครอบตัดรูปภาพของคุณ</h1>
 
-    <div mat-dialog-content class="dialog-layout">
+    <div mat-dialog-content class="dialog-layout relative overflow-hidden">
       <!-- Sidebar -->
       <div class="sidebar">
         <h3>ความสว่าง</h3>
@@ -60,9 +60,14 @@ export type CropperDialogResult = {
       </button>
     </div>
 
+    
+
     <!-- Cropper + Buttons -->
     <div class="cropper-container">
-      <image-cropper
+    <!--<img src="assets/IMG_7071_green.png" class='absolute top-0 left-0 w-full h-full object-contain z-10'/>
+    <div class="absolute z-0"
+       style="top: 75%; left: 50%; width: 50%; height: 50%; transform: translate(-50%, -50%)">   -->
+    <image-cropper
         [maintainAspectRatio]="true"
         [aspectRatio]="data.width / data.height"
         [resizeToHeight]="data.height"
@@ -71,8 +76,9 @@ export type CropperDialogResult = {
         [imageFile]="data.image"
         (imageCropped)="imageCropped($event)"
         [style.filter]="'brightness(' + brightness() + ') contrast(' + contrast() + ')'"
-      ></image-cropper>
-    </div>
+       class=""></image-cropper>
+    <!--</div> -->
+     </div>
   </div>
 
       <div mat-dialog-actions align="end">
@@ -106,13 +112,12 @@ export type CropperDialogResult = {
       background-color: white;
       padding: 16px;
       border-radius: 8px;
-      width: 100%;             
-       max-width: 100%;         
+       
     }
 
     input[type="range"] {
-      width: 100%;
-    }
+      /* width: 100%; */
+         }
 
     .reset-button {
   background-color: #f44336; /* ฟ้า */
@@ -169,6 +174,7 @@ export class CropperDialogComponent {
   resetContrast() {
    this.contrast.set(1);
   }
+  
 
   data: CropperDialogData = inject(MAT_DIALOG_DATA);
 
