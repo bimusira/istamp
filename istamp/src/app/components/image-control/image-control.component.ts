@@ -8,6 +8,7 @@ import {
   effect,
   inject,
   signal,
+  OnInit 
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -24,6 +25,11 @@ import {
   uploadBytes,
 } from '@angular/fire/storage';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { GcsService } from '../../gcs.service';
+
 
 @Component({
   selector: 'app-image-control',
@@ -55,7 +61,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         #inputField
         hidden
         type="file"
-        (change)="fileSelected($event)"
+        (change)="onFileSelected($event)"
         (click)="inputField.value = ''"
          accept="image/*"
       />
@@ -68,9 +74,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       <button mat-raised-button class="select-button" (click)="inputField.click()">
         เลือกรูปภาพ
       </button>
+      <button mat-raised-button (click)="getFilesImg()" class="select-button"> รูปภาพที่อัพโหลด </button>
       <button mat-raised-button class="clear-button" *ngIf="croppedImageURL()" (click)="clearImage()">
         ลบรูปภาพ
       </button>
+      <div *ngIf="imageUrls">
+        <div *ngFor="let url of imageUrls">
+          <img [src]="url" [width]="imageWidth()" [height]="imageHeight()" />
+        </div>
+      </div>
     </div>
   `,
   styles: [
@@ -91,7 +103,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
       .clear-button {
         background-color: #f44336;  /* แดง */
-        color: white;
+
       font-weight: bold;
       border-radius: 4px;
       padding: 6px 16px;
@@ -104,7 +116,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
       .select-button {
         background-color: #4caf50;  /* เขียว */
-        color: white;
+      
         font-weight: bold;
         border-radius: 4px;
         padding: 6px 16px;
@@ -134,9 +146,23 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
 })
 export class ImageControlComponent {
+  imageUrls: string[] = [];
+
+constructor(private gcs: GcsService , private http: HttpClient) {
+  effect(() => {
+      if (this.croppedImageURL()) {
+        this.imageReady.emit(this.croppedImageURL());
+      }
+    });
+}
+
+ngOnInit() {}
+  
+
 clearImage() {
   this.croppedImageURL.set(undefined);
 }
+
 
 presetSizes = [
   { label: 'แสตมป์ (3.3*3ซม)', width: 390, height: 354 },
@@ -168,51 +194,68 @@ imageHeight = computed(() => this.selectedSize().height);
 
   dialog = inject(MatDialog);
 
-  fileSelected(event: any) {
-    const file = event.target?.files[0];
-    if (file) {
-      const dialogRef = this.dialog.open(CropperDialogComponent, {
-        data: {
-          image: file,
-          width: this.imageWidth(),
-          height: this.imageHeight(),
-        },
-        width: '1000px',
-        height: '1000px',
-        maxWidth: '95vw',
-        maxHeight: '95vh',
-      });
+  uploadFile(file: File, signedUrl: string): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': file.type });
+  return this.http.put(signedUrl, file, { headers, reportProgress: true, observe: 'events' });
+}
 
-      dialogRef
-        .afterClosed()
-        .pipe(filter((result) => !!result))
-        .subscribe((result: CropperDialogResult) => {
-          this.uploadImage(result.blob);
-        });
-    }
-  }
+onFileSelected(event: any) {
+  const file = event.target.files[0];
+  this.gcs.getUploadUrl(file.name).subscribe((urls: { uploadUrl: string }) => {
+    this.uploadFile(file, urls.uploadUrl).subscribe(response => {
+      console.log('Upload complete', response);
+    });
+  });
+}
+
+getFilesImg() {
+  this.gcs.getfilesImg().subscribe((response: { count: number, images: string[] }) => {
+    console.log('Image files:', response.count, response.images);
+    this.imageUrls = response.images;
+  });
+}
+
+  // fileSelected(event: any) {
+  //   const file = event.target?.files[0];
+
+  //   if (file) {
+  //     const dialogRef = this.dialog.open(CropperDialogComponent, {
+  //       data: {
+  //         image: file,
+  //         width: this.imageWidth(),
+  //         height: this.imageHeight(),
+  //       },
+  //       width: '1000px',
+  //       height: '1000px',
+  //       maxWidth: '95vw',
+  //       maxHeight: '95vh',
+  //     });
+
+  //     dialogRef
+  //       .afterClosed()
+  //       .pipe(filter((result) => !!result))
+  //       .subscribe((result: CropperDialogResult) => {
+  //         this.uploadImage(result.blob);
+  //       });
+  //   }
+  // };
+
+
 
   @Output() imageReady = new EventEmitter<string>();
 
-  constructor() {
-    effect(() => {
-      if (this.croppedImageURL()) {
-        this.imageReady.emit(this.croppedImageURL());
-      }
-    });
-  }
 
-  storage = inject(Storage);
+  // storage = inject(Storage);
   zone = inject(NgZone);
 
-  async uploadImage(blob: Blob) {
-    this.uploading.set(true);
-    const storageRef = ref(this.storage, this.imagePath());
-    const uploadTask = await uploadBytes(storageRef, blob);
-    const downloadUrl = await getDownloadURL(uploadTask.ref);
-    this.croppedImageURL.set(downloadUrl);
-    this.uploading.set(false);
-  }
+  // async uploadImage(blob: Blob) {
+  //   this.uploading.set(true);
+  //   const storageRef = ref(this.storage, this.imagePath());
+  //   const uploadTask = await uploadBytes(storageRef, blob);
+  //   const downloadUrl = await getDownloadURL(uploadTask.ref);
+  //   this.croppedImageURL.set(downloadUrl);
+  //   this.uploading.set(false);
+  // }
 
   onSizeChange(index: number) {
     this.selectedSize.set(this.presetSizes[+index]);
