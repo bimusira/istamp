@@ -33,6 +33,16 @@ export class GcsService {
     }
   }
 
+  async deleteFile(fileName: string): Promise<void> {
+    try {
+      await this.storage.bucket(this.bucketName).file('%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%A3%E0%B8%A2%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B7%E0%B8%AD%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9A.jpg').delete();
+
+    } catch (error) {
+      console.error('🔴 GCS DELETE FILE ERROR:', error.message);
+      throw new InternalServerErrorException('Failed to delete file');
+    }
+  }
+
   async imgBucket(): Promise<any> {
     const [files] = await this.storage.bucket(this.bucketName).getFiles();
     // const imageFiles = files
