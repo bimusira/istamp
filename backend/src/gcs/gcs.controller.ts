@@ -13,14 +13,14 @@ export class GcsController {
   @Get('image-files')
   async getIMG() {
     const urls = await this.gcsService.imgBucket();
-    return { count: urls.length, images: urls }
+    return { count: urls[0].length, images: urls[0] , filedetails: urls[1] };
   }
 
-  @Delete('delete-file')
+  @Delete('delete-file/:fileName')
   async deleteFile(@Param('fileName') fileName: string) {
     return this.gcsService.deleteFile(fileName);
   }
-  
+
 //   @Post('upload')
 //   upload() {
 //     return this.gcsService.uploadTestJson();

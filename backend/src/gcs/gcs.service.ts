@@ -35,7 +35,7 @@ export class GcsService {
 
   async deleteFile(fileName: string): Promise<void> {
     try {
-      await this.storage.bucket(this.bucketName).file('%E0%B8%88%E0%B8%B1%E0%B8%81%E0%B8%A3%E0%B8%A2%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%AA%E0%B8%B7%E0%B8%AD%E0%B8%AB%E0%B8%A1%E0%B8%AD%E0%B8%9A.jpg').delete();
+      await this.storage.bucket(this.bucketName).file(fileName).delete();
 
     } catch (error) {
       console.error('🔴 GCS DELETE FILE ERROR:', error.message);
@@ -47,8 +47,10 @@ export class GcsService {
     const [files] = await this.storage.bucket(this.bucketName).getFiles();
     // const imageFiles = files
     const imageFiles = files.filter(file =>
-      /\.(jpg|jpeg|png|webp)$/i.test(file.name)
+      /\.(jpg|jpeg|png)$/i.test(file.name)
     );
+
+    console.log('Image files:', imageFiles);
 
     const signedUrls = await Promise.all(
       imageFiles.map(file =>
@@ -59,7 +61,7 @@ export class GcsService {
       )
     );
 
-    return signedUrls
+    return [signedUrls , imageFiles.map(file => file.name)];
   }
 //   async uploadTestJson() {
 //     const bucket = this.storage.bucket(this.bucketName);

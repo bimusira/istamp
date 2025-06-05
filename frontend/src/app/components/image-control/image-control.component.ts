@@ -8,7 +8,8 @@ import {
   effect,
   inject,
   signal,
-  OnInit 
+  OnInit,
+   
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -29,7 +30,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { GcsService } from '../../gcs.service';
-
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-image-control',
@@ -39,6 +40,7 @@ import { GcsService } from '../../gcs.service';
     MatDialogModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    FormsModule,
   ],
   template: `
     <div class="control-container" [style.width]="imageWidth() + 'px'">
@@ -64,6 +66,7 @@ import { GcsService } from '../../gcs.service';
         (change)="onFileSelected($event)"
         (click)="inputField.value = ''"
          accept="image/*"
+         multiple
       />
       <label>เลือกขนาดรูปภาพ</label>
       <select (change)="onSizeChange($any($event.target).value)">
@@ -74,8 +77,13 @@ import { GcsService } from '../../gcs.service';
       <button mat-raised-button class="select-button" (click)="inputField.click()">
         เลือกรูปภาพ
       </button>
-      <button mat-raised-button (click)="getFilesImg()" class="select-button"> รูปภาพที่อัพโหลด </button>
-      <button mat-raised-button class="clear-button" *ngIf="croppedImageURL()" (click)="clearImage()">
+
+      <select class="select" [(ngModel)]="imageSc">
+        <option *ngFor="let name of imageDetails"> {{ name }} </option>
+      </select>
+
+      <button mat-raised-button class="select-button" (click)="deleteFile(imageSc)"> ลบรูปภาพที่เลือก </button>
+      <button mat-raised-button class="clear-button" [disabled]="!imageSc" *ngIf="croppedImageURL()" (click)="clearImage()">
         ลบรูปภาพ
       </button>
       <div *ngIf="imageUrls">
@@ -146,7 +154,12 @@ import { GcsService } from '../../gcs.service';
   ],
 })
 export class ImageControlComponent {
+  ngOnInit() {
+  this.getFilesImg();
+}
   imageUrls: string[] = [];
+  imageDetails: string[] = [];
+  imageSc = '';
 
 constructor(private gcs: GcsService , private http: HttpClient) {
   effect(() => {
@@ -156,7 +169,6 @@ constructor(private gcs: GcsService , private http: HttpClient) {
     });
 }
 
-ngOnInit() {}
   
 
 clearImage() {
@@ -199,22 +211,87 @@ imageHeight = computed(() => this.selectedSize().height);
   return this.http.put(signedUrl, file, { headers, reportProgress: true, observe: 'events' });
 }
 
-onFileSelected(event: any) {
-  const file = event.target.files[0];
-  this.gcs.getUploadUrl(file.name).subscribe((urls: { uploadUrl: string }) => {
-    this.uploadFile(file, urls.uploadUrl).subscribe(response => {
-      console.log('Upload complete', response);
-    });
-  });
+async onFileSelected(event: any) {
+  const file = event.target.files;
+  
+  for (let i = 0; i < file.length; i++) {
+    const selectedFile = file[i];
+
+    if (selectedFile) {
+      const newfile = this.dialog.open(CropperDialogComponent, {
+        data: {
+          name: selectedFile.name,
+          image: selectedFile,
+          width: this.imageWidth(),
+          height: this.imageHeight(),
+        },
+        width: '1000px',
+        height: '1000px',
+        maxWidth: '95vw',
+        maxHeight: '95vh',
+      });
+
+      newfile.afterClosed()
+        .pipe(filter((result) => !!result))
+        .subscribe((result: CropperDialogResult) => {
+          this.uploadImage(result.blob);
+          console.log(result.imageUrl)
+        });
+    }
+
+  }
+
+  
+  // this.gcs.getUploadUrl(file.name).subscribe((urls: { uploadUrl: string }) => {
+  //   this.uploadFile(file, urls.uploadUrl).subscribe(response => {
+  //     console.log('Upload complete', response);
+  //     this.getFilesImg();
+  //   });
+  // });
 }
+
+async uploadImage(blob: Blob) {
+    const filename = `image_${Date.now()}.png`;
+
+    this.gcs.getUploadUrl('test/'+filename).subscribe({
+      next: (urls: { uploadUrl: string }) => {
+        this.uploadFile(new File([blob], filename, { type: 'image/png' }), urls.uploadUrl)
+        .subscribe({
+          next: (response) => {
+            console.log('Upload complete', response);
+           const image = this.croppedImageURL.set(URL.createObjectURL(blob));
+            this.getFilesImg(); // รีเฟรชรายการไฟล์
+          },
+          error: (err) => {
+            console.error('Upload error', err);
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Error getting upload URL', err);
+      }
+    });
+   }
 
 getFilesImg() {
-  this.gcs.getfilesImg().subscribe((response: { count: number, images: string[] }) => {
-    console.log('Image files:', response.count, response.images);
+  this.gcs.getfilesImg().subscribe((response: { count: number, images: string[] , filedetails:string[] }) => {
+    console.log('Image files:', response.count, response.images , response.filedetails);
+    this.imageDetails = response.filedetails;
     this.imageUrls = response.images;
+     if (this.imageDetails.length > 0) {
+    this.imageSc = this.imageDetails[0];
+  }
   });
 }
 
+
+deleteFile(fileName: string) { 
+
+  this.gcs.deleteFile(fileName).subscribe(() => {
+    console.log('File deleted:', fileName);
+    this.getFilesImg();
+  });
+}
   // fileSelected(event: any) {
   //   const file = event.target?.files[0];
 
@@ -243,19 +320,13 @@ getFilesImg() {
 
 
   @Output() imageReady = new EventEmitter<string>();
+  
 
 
   // storage = inject(Storage);
   zone = inject(NgZone);
 
-  // async uploadImage(blob: Blob) {
-  //   this.uploading.set(true);
-  //   const storageRef = ref(this.storage, this.imagePath());
-  //   const uploadTask = await uploadBytes(storageRef, blob);
-  //   const downloadUrl = await getDownloadURL(uploadTask.ref);
-  //   this.croppedImageURL.set(downloadUrl);
-  //   this.uploading.set(false);
-  // }
+
 
   onSizeChange(index: number) {
     this.selectedSize.set(this.presetSizes[+index]);
