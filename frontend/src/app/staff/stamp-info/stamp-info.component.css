@@ -26,16 +26,15 @@ button:hover {
 }
 
 input {
-  padding: 8px;
+  background-color: #fff;
   border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.input {
   transition: all 0.3s ease;
+  outline: none;
+  border: none;
+  padding: 0 0 0 48px;
 }
 
-.input:focus {
-  border-color: #f34040;
+input:focus {
+  border: solid 2px #f34040;
   outline: none;
 }

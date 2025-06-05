@@ -1,108 +1,182 @@
-<div class="relative min-h-screen flex items-center justify-center bg-[#f7f7f7]">
-
+<div
+  class="relative min-h-screen flex items-center justify-center bg-[#F3F3F7]"
+>
   <div class="absolute inset-0 z-0">
     <svg
-      class="w-full h-full"
+      class="w-full h-full absolute inset-0 z-0"
+      width="1440"
+      height="1024"
+      viewBox="0 0 1440 1024"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1440 320"
-      preserveAspectRatio="none"
     >
+      <g filter="url(#blur-filter)">
+        <path
+          d="M182.191 515.979C-47.7424 475.244 -240.005 1049.16 -240.005 1049.16L-264.549 -27.7106L1775.36 -98.4755L1392.2 197.998C1392.2 197.998 808.502 702.186 600.63 717.682C392.759 733.179 386.853 552.237 182.191 515.979Z"
+          fill="url(#paint0_linear_219_1545)"
+        />
+      </g>
       <defs>
-        <linearGradient id="bg-gradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fd7267" />
-          <stop offset="100%" stop-color="#f7f7f7" />
+        <linearGradient
+          id="paint0_linear_219_1545"
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="300"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FFB5A7" />
+          <stop offset="1" stop-color="#F34040" />
         </linearGradient>
       </defs>
-      <path
-        fill="url(#bg-gradient)"
-        d="M0,160 C360,320 1080,0 1440,160 L1440,320 L0,320 Z"
-      />
+    </svg>
+    <svg
+      class="w-full h-full absolute inset-0 z-0"
+      width="1440"
+      height="1024"
+      viewBox="0 0 1440 1024"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_f_219_1544)">
+        <path
+          d="M188.5 505C-25.993 455.955 -226.563 1056 -226.563 1056H-240V-30H1677L1328 252.5C1328 252.5 766.617 686.658 571 695C375.383 703.342 379.419 548.655 188.5 505Z"
+          fill="url(#paint0_linear_219_1544)"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_f_219_1544"
+          x="-440"
+          y="-230"
+          width="2317"
+          height="1486"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          />
+          <feGaussianBlur
+            stdDeviation="100"
+            result="effect1_foregroundBlur_219_1544"
+          />
+        </filter>
+        <linearGradient
+          id="paint0_linear_219_1544"
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="1"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.0001" stop-color="#F34040" />
+          <stop offset="1" stop-color="#FFB5B5" />
+        </linearGradient>
+        <filter
+          id="blur-filter"
+          x="-500"
+          y="-500"
+          width="2400"
+          height="2000"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feGaussianBlur stdDeviation="1" />
+        </filter>
+      </defs>
     </svg>
   </div>
-  
+
   <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg z-10 relative">
+    <img src="assets/logo.jpeg" alt="Logo" class="w-32 mx-auto mb-4" />
+    <h2 class="text-center text-gray-700 text-lg font-semibold mb-1">
+      ลงทะเบียน
+    </h2>
+    <p class="text-center text-gray-500 mb-6 text-sm">สำหรับเจ้าหน้าที่</p>
 
-  <img src="assets/logo.jpeg" alt="Logo" class="w-32 mx-auto mb-4" />
-  <h2 class="text-center text-gray-700 text-lg font-semibold mb-1">
-    ลงทะเบียน
-  </h2>
-  <p class="text-center text-gray-500 mb-6 text-sm">สำหรับเจ้าหน้าที่</p>
-
-  <form>
-    <label class="block text-gray-600 mb-1" for="username-register"
-      >Username</label
-    >
-    <input
-      id="username-register"
-      type="text"
-      required
-      class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
-    />
-
-    <label class="block text-gray-600 mb-1" for="email-register">Email</label>
-    <input
-      id="email-register"
-      type="email"
-      required
-      class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
-    />
-
-    <label class="block text-gray-600 mb-1" for="password-register"
-      >Password</label
-    >
-    <div class="relative">
+    <form>
+      <label class="block text-gray-600 mb-1" for="username-register"
+        >Username</label
+      >
       <input
-        id="password-register"
-        [type]="passwordFieldType"
+        id="username-register"
+        type="text"
         required
         class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
       />
-      <span
-        class="material-symbols-outlined absolute right-3 cursor-pointer select-none text-gray-500"
-        style="top: 50%; transform: translateY(-50%); font-size: 20px"
-        (click)="togglePasswordVisibility()"
-      >
-        {{ passwordFieldType === "password" ? "visibility_off" : "visibility" }}
-      </span>
-    </div>
 
-    <label class="block text-gray-600 mb-1" for="confirm-password-register"
-      >Confirm Password</label
-    >
-    <div class="relative">
+      <label class="block text-gray-600 mb-1" for="email-register">Email</label>
       <input
-        id="confirm-password-register"
-        [type]="confirmPasswordFieldType"
+        id="email-register"
+        type="email"
         required
         class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
       />
-      <span
-        class="material-symbols-outlined absolute right-3 cursor-pointer select-none text-gray-500"
-        style="top: 50%; transform: translateY(-50%); font-size: 20px"
-        (click)="toggleConfirmPasswordVisibility()"
-      >
-        {{
-          confirmPasswordFieldType === "password"
-            ? "visibility_off"
-            : "visibility"
-        }}
-      </span>
-    </div>
 
-    <button
-      type="submit"
-      class="w-full bg-[#F97B74] hover:bg-[#e56769] text-white py-3 rounded font-semibold transition"
-    >
-      Register
-    </button>
-
-    <p class="text-center text-gray-600 mt-4 text-sm">
-      Already a User?
-      <a
-        routerLink="/staff/login"
-        class="underline hover:text-[#e56769] cursor-pointer"
-        >Login now</a
+      <label class="block text-gray-600 mb-1" for="password-register"
+        >Password</label
       >
-    </p>
-  </form>
+      <div class="relative">
+        <input
+          id="password-register"
+          [type]="passwordFieldType"
+          required
+          class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
+        />
+        <span
+          class="material-symbols-outlined absolute right-3 cursor-pointer select-none text-gray-500"
+          style="top: 50%; transform: translateY(-50%); font-size: 20px"
+          (click)="togglePasswordVisibility()"
+        >
+          {{
+            passwordFieldType === "password" ? "visibility_off" : "visibility"
+          }}
+        </span>
+      </div>
+
+      <label class="block text-gray-600 mb-1" for="confirm-password-register"
+        >Confirm Password</label
+      >
+      <div class="relative">
+        <input
+          id="confirm-password-register"
+          [type]="confirmPasswordFieldType"
+          required
+          class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
+        />
+        <span
+          class="material-symbols-outlined absolute right-3 cursor-pointer select-none text-gray-500"
+          style="top: 50%; transform: translateY(-50%); font-size: 20px"
+          (click)="toggleConfirmPasswordVisibility()"
+        >
+          {{
+            confirmPasswordFieldType === "password"
+              ? "visibility_off"
+              : "visibility"
+          }}
+        </span>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-[#F97B74] hover:bg-[#e56769] text-white py-3 rounded font-semibold transition"
+      >
+        Register
+      </button>
+
+      <p class="text-center text-gray-600 mt-4 text-sm">
+        Already a User?
+        <a
+          routerLink="/staff/login"
+          class="underline hover:text-[#e56769] cursor-pointer"
+          >Login now</a
+        >
+      </p>
+    </form>
+  </div>
 </div>

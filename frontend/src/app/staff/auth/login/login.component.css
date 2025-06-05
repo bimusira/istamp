@@ -1,0 +1,8 @@
+/* Blob shapes */
+.blob1 {
+  border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
+}
+
+.blob2 {
+  border-radius: 70% 50% 60% 40% / 40% 30% 70% 60%;
+}

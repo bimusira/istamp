@@ -1,22 +1,19 @@
 @import "tailwindcss";
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-body, app-root {
+body,
+app-root {
   min-height: 100vh;
   position: relative;
 }
 
-/* Blob shapes */
-.blob1 {
-  border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
-}
-
-.blob2 {
-  border-radius: 70% 50% 60% 40% / 40% 30% 70% 60%;
+button:hover {
+  cursor: pointer;
 }
