@@ -1,0 +1,93 @@
+.container {
+  max-width: 414px; /* typical mobile width */
+  margin: 0 auto;
+  padding: 16px;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+}
+
+.title {
+  text-align: center;
+  margin: 24px 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex-grow: 1;
+  justify-items: center;
+  align-items: center;
+}
+
+.card {
+  width: 90px;
+  height: 120px;
+  background-color: #f5f6fa;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-img {
+  font-size: 32px;
+  color: #aaa;
+}
+
+.upload-btn {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  background-color: #ff7043;
+  border-radius: 50%;
+  padding: 6px;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.btn-outline {
+  padding: 10px 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  color: black;
+}
+
+.btn-filled {
+  padding: 10px 24px;
+  background-color: #1a1f36;
+  color: white;
+  border-radius: 8px;
+  border: none;
+}

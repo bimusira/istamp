@@ -22,8 +22,7 @@ import { HttpClient } from '@angular/common/http';
     FormsModule,
     MatButtonModule,
   ],
-  template: ` <router-outlet></router-outlet>
-  `,
+  template: ` <router-outlet></router-outlet>`,
   styles: [
     `
       .container {
@@ -33,15 +32,14 @@ import { HttpClient } from '@angular/common/http';
   ],
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router , private http: HttpClient) {}
   
    goTo(path:string) {
     this.router.navigate([`/${path}`]);
-
+   }
   // height = signal(250);
  // width = signal(250);
 
-  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     if (!sessionStorage.getItem('customer_id')) {
@@ -61,5 +59,4 @@ export class AppComponent {
   //imageReady(imageUrl: string) {
    // console.log('Firebase Uploaded Image: ', imageUrl);}
 
-  
 }
