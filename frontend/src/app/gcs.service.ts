@@ -12,6 +12,10 @@ export class GcsService {
   }
 
   getfilesImg(){
-    return this.http.get<{ count: number, images: string[] }>('http://localhost:3000/gcs/image-files');
+    return this.http.get<{ count: number, images: string[] , filedetails:string[] }>('http://localhost:3000/gcs/image-files');
+  }
+
+  deleteFile(fileName: string) {
+    return this.http.delete(`http://localhost:3000/gcs/delete-file/${encodeURIComponent(fileName)}`);
   }
 }
