@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [RouterModule, MatButtonModule],
   template: `
     <h2>เลือกหน้า Demo</h2>
