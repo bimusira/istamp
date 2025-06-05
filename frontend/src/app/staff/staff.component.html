@@ -1,1 +1,104 @@
-<router-outlet></router-outlet>
+<div class="min-h-screen bg-[#F9FAFB] flex">
+  <!-- Sidebar -->
+  <aside
+    [class.w-20]="collapsed"
+    [class.w-56]="!collapsed"
+    class="bg-white shadow-md transition-all duration-300 p-4"
+  >
+    <!-- logo + toggle -->
+    <div class="flex items-center justify-between mb-" *ngIf="!collapsed">
+      <img src="assets/logo.jpeg" alt="Logo" class="w-[55px] h-[55px]" />
+      <button (click)="toggleSidebar()" class="text-[#979fad]">
+        <span class="material-symbols-outlined">menu_open</span>
+      </button>
+    </div>
+    <div class="flex flex-col gap-4 items-center" *ngIf="collapsed">
+      <button (click)="toggleSidebar()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+
+    <!-- Menu -->
+    <nav class="space-y-2 text-[#979fad] mt-4">
+      <a
+        class="flex items-center gap-2 w-full p-2 rounded-[10px] font-medium bg-gradient-to-r from-[#F34040] to-[#F97574] text-white"
+        [ngClass]="{ 'justify-center': collapsed }"
+        routerLink="/staff/stamp-info"
+      >
+        <span class="material-symbols-outlined text-[24px] text-white"
+          >dashboard</span
+        >
+        <span *ngIf="!collapsed">เมนู</span>
+      </a>
+      <a
+        class="flex items-center gap-2 w-full p-2 rounded-[10px] hover:bg-gray-100"
+        [ngClass]="{ 'justify-center': collapsed }"
+        routerLink="/staff/stamp-info"
+      >
+        <span class="material-symbols-outlined text-[24px]">edit_document</span>
+        <span *ngIf="!collapsed">ทำรายการ</span>
+      </a>
+      <a
+        class="flex items-center gap-2 w-full p-2 rounded-[10px] hover:bg-gray-100"
+        [ngClass]="{ 'justify-center': collapsed }"
+        routerLink="/staff/stamp-info"
+      >
+        <span class="material-symbols-outlined text-[24px]">web_stories</span>
+        <span *ngIf="!collapsed">เทมเพลท</span>
+      </a>
+      <a
+        class="flex items-center gap-2 w-full p-2 rounded-[10px] hover:bg-gray-100"
+        [ngClass]="{ 'justify-center': collapsed }"
+        routerLink="/staff/stamp-print"
+      >
+        <span class="material-symbols-outlined text-[24px]">history</span>
+        <span *ngIf="!collapsed">ประวัติการปริ้น</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 space-y-4">
+    <!-- Top Header -->
+    <div
+      class="flex justify-between items-center h-[60px] bg-white shadow-sm py-4"
+    >
+      <h1 class="text-xl font-semibold text-gray-700"></h1>
+
+      <!-- User dropdown -->
+      <button
+        class="relative w-[208px] h-[65px] px-4 rounded-md hover:bg-gray-100"
+        (click)="toggleDropdown()"
+        tabindex="0"
+      >
+        <div class="flex justify-between cursor-pointer text-gray-600">
+          <div class="flex gap-2 justify-center items-center">
+            <span class="material-symbols-outlined">account_circle</span>
+            <span>{{ username }}</span>
+          </div>
+
+          <span class="material-symbols-outlined">expand_more</span>
+        </div>
+
+        <!-- Dropdown -->
+        <div
+          *ngIf="dropdownOpen"
+          class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-10"
+        >
+          <button
+            class="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700"
+            (click)="logout()"
+          >
+            <span class="material-symbols-outlined text-sm mr-2 align-middle"
+              >logout</span
+            >
+            ออกจากระบบ
+          </button>
+        </div>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-auto p-6 bg-[#F9FAFB]">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

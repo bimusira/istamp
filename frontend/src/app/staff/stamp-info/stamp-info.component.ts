@@ -11,14 +11,15 @@ import { RouterModule } from '@angular/router'; // นำเข้า RouterModu
   styleUrls: ['./stamp-info.component.css']
 })
 export class StampInfoComponent implements OnInit {
-  // Sample data for the table
   stampData = [
-    { id: 1, name: 'เพลง', phone: '064-xxx-xxxx', date: '21/05/2025 12:00 น.', status: 'รอดำเนินการ', details: 'ดูรายละเอียด' },
-    { id: 2, name: 'ต้อง', phone: '064-xxx-xxxx', date: '21/05/2025 12:00 น.', status: 'รอดำเนินการ', details: 'ดูรายละเอียด' },
-    { id: 3, name: 'บีม', phone: '064-xxx-xxxx', date: '21/05/2025 12:00 น.', status: 'เสร็จสิ้น', details: 'ดูรายละเอียด' },
+    { id: 1, name: 'สมชาย ใจดี', phone: '064-431-6525', date: '21/05/2025 12:00 น.', status: 'รอดำเนินการ', details: 'ดูรายละเอียด' },
+    { id: 2, name: 'สมชาย ใจดี', phone: '064-431-6525', date: '21/05/2025 12:00 น.', status: 'รอดำเนินการ', details: 'ดูรายละเอียด' },
+    { id: 3, name: 'สมชาย ใจดี', phone: '064-431-6525', date: '21/05/2025 12:00 น.', status: 'เสร็จสิ้น', details: 'ดูรายละเอียด' },
   ];
 
   collapsed = false;
+  username = 'John Doe'; // หรือดึงจาก Auth Service
+  dropdownOpen = false;
 
   constructor(private router: Router) {}
 
@@ -28,25 +29,34 @@ export class StampInfoComponent implements OnInit {
     this.collapsed = !this.collapsed;
   }
 
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  logout() {
+    console.log('ออกจากระบบ');
+    // ทำการ logout ที่นี่ เช่น:
+    // localStorage.clear(); this.router.navigate(['/login']);
+  }
+
   viewDetails(item: any) {
     console.log('Viewing details for:', item);
   }
 
   onSearch(event: Event) {
-    const input = event.target as HTMLInputElement;  // Type-casting ให้เป็น HTMLInputElement
-    const query = input.value;  // ตอนนี้เราสามารถใช้ value ได้
-    this.stampData = this.stampData.filter(item => 
+    const input = event.target as HTMLInputElement;
+    const query = input.value;
+    this.stampData = this.stampData.filter(item =>
       item.name.includes(query) || item.phone.includes(query)
     );
   }
 
   openCalendar() {
     console.log('เปิดปฏิทิน');
-    // เพิ่มฟังก์ชันการแสดงปฏิทินที่นี่
   }
 
   refreshData() {
     console.log('ข้อมูลรีเฟรชแล้ว');
-    // เพิ่มฟังก์ชันการรีเฟรชข้อมูลที่นี่
   }
 }
+

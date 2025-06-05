@@ -13,7 +13,34 @@ app-root {
   min-height: 100vh;
   position: relative;
 }
+button {
+  transition: background-color 0.3s ease;
+}
 
 button:hover {
   cursor: pointer;
+}
+
+.button-primary {  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F34040;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #d41212;
+}
+
+.button-secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: black;
+}
+
+.button-secondary:hover {
+  background-color: rgb(229, 229, 229);
 }
