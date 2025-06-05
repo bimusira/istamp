@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -35,12 +36,29 @@ export class AppComponent {
   
    goTo(path:string) {
     this.router.navigate([`/${path}`]);
-  }
 
   // height = signal(250);
-  // width = signal(250);
+ // width = signal(250);
 
-  // imageReady(imageUrl: string) {
-  //   console.log('Firebase Uploaded Image: ', imageUrl);
-  // }
+  constructor(private http: HttpClient) { }
+
+  ngOnInit() {
+    if (!sessionStorage.getItem('customer_id')) {
+      this.http.get<{ uuid: string }>('http://localhost:3000/customer/generateuuid')
+        .subscribe({
+          next: (res) => {
+            sessionStorage.setItem('customer_id', res.uuid);
+            console.log('Saved uuid to sessionStorage:', res.uuid);
+          },
+          error: (err) => {
+            console.error('Error fetching uuid:', err);
+          }
+        });
+    }
+  }
+
+  //imageReady(imageUrl: string) {
+   // console.log('Firebase Uploaded Image: ', imageUrl);}
+
+  
 }
