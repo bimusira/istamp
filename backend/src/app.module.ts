@@ -4,11 +4,10 @@ import { AppService } from './app.service';
 import { GcsService } from './gcs/gcs.service';
 import { GcsController } from './gcs/gcs.controller';
 import { CustomerModule } from './customer/customer.module';
-import { HttpClientModule } from '@angular/common/http';
 
 
 @Module({
-  imports: [CustomerModule, HttpClientModule],
+  imports: [CustomerModule],
   controllers: [AppController, GcsController],
   providers: [AppService, GcsService],
 })
