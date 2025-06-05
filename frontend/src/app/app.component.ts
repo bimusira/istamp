@@ -21,8 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatButtonModule,
   ],
-  template: ` <router-outlet></router-outlet>
-  `,
+  template: ` <router-outlet></router-outlet>`,
   styles: [
     `
       .container {

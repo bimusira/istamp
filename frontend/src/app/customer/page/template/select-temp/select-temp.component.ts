@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-select-temp',
   standalone: true,
-  imports: [],
+  imports: [MatIconModule,CommonModule],
   templateUrl: './select-temp.component.html',
   styleUrl: './select-temp.component.css'
 })
 export class SelectTempComponent {
+  cards = [1, 2, 3, 4, 5];
 
 }
