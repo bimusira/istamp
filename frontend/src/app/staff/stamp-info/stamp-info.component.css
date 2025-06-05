@@ -1,0 +1,41 @@
+/* Add custom styles to match the design */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  background-color: #f9fafb;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+}
+
+button {
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f97574;
+}
+
+input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.input {
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border-color: #f34040;
+  outline: none;
+}

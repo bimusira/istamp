@@ -1,71 +1,83 @@
-<div
-  class="max-w-md mx-auto mt-16 bg-white p-8 rounded-lg shadow-lg relative overflow-hidden"
->
-  <div
-    class="absolute top-[-80px] right-[-80px] w-40 h-40 bg-pink-300 rounded-[60%_40%_30%_70%/_50%_60%_40%_50%] filter blur-3xl opacity-75 -z-10"
-  ></div>
-  <div
-    class="absolute bottom-[-80px] left-[-80px] w-40 h-40 bg-pink-200 rounded-[70%_50%_60%_40%/_40%_30%_70%_60%] filter blur-3xl opacity-60 -z-10"
-  ></div>
+<div class="relative min-h-screen flex items-center justify-center bg-[#f7f7f7]">
 
-  <img src="assets/logo.jpeg" alt="Logo" class="w-32 mx-auto mb-4" />
-  <h2 class="text-center text-gray-700 text-lg font-semibold mb-1">
-    ยินดีต้อนรับ !
-  </h2>
-  <p class="text-center text-gray-500 mb-6 text-sm">
-    เข้าสู่ระบบเพื่อทำการสร้างใบที่ระลึกได้เลย
-  </p>
-
-  <form>
-    <label class="block text-gray-600 mb-1" for="email-login">Email</label>
-    <input
-      id="email-login"
-      type="email"
-      required
-      class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74]"
-    />
-
-    <label class="block text-gray-600 mb-1" for="password-login"
-      >Password</label
+  <div class="absolute inset-0 z-0">
+    <svg
+      class="w-full h-full"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1440 320"
+      preserveAspectRatio="none"
     >
-    <div class="relative">
-      <input
-        id="password-login"
-        [type]="passwordFieldType"
-        required
-        class="w-full p-3 border border-gray-300 rounded pr-10 focus:outline-none focus:ring-2 focus:ring-[#F97B74]"
+      <defs>
+        <linearGradient id="bg-gradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fd7267" />
+          <stop offset="100%" stop-color="#f7f7f7" />
+        </linearGradient>
+      </defs>
+      <path
+        fill="url(#bg-gradient)"
+        d="M0,160 C360,320 1080,0 1440,160 L1440,320 L0,320 Z"
       />
-      <span
-        class="material-symbols-outlined absolute right-3 cursor-pointer select-none text-gray-500"
-        style="top: 50%; transform: translateY(-50%); font-size: 20px"
-        (click)="togglePasswordVisibility()"
-      >
-        {{ passwordFieldType === "password" ? "visibility_off" : "visibility" }}
-      </span>
-    </div>
+    </svg>
+  </div>
+  
+  <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg z-10 relative">
+    <img src="assets/logo.jpeg" alt="Logo" class="w-32 mx-auto mb-4" />
 
-    <div class="flex items-center justify-between mb-6 mt-6 text-sm text-gray-600">
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" class="accent-[#F97B74]" />
-        <span>Remember me</span>
-      </label>
-      <a href="#" class="underline hover:text-[#e56769]">Forgot password?</a>
-    </div>
-
-    <button
-      type="submit"
-      class="w-full bg-[#F97B74] hover:bg-[#e56769] text-white py-3 rounded font-semibold transition"
-    >
-      Login
-    </button>
-
-    <p class="text-center text-gray-600 mt-6 text-sm">
-      New User?
-      <a
-        routerLink="/staff/register"
-        class="underline hover:text-[#e56769] cursor-pointer"
-        >Register Here</a
-      >
+    <h2 class="text-center text-gray-700 text-lg font-semibold mb-1">
+      ยินดีต้อนรับ !
+    </h2>
+    <p class="text-center text-gray-500 mb-6 text-sm">
+      เข้าสู่ระบบเพื่อทำการสร้างใบที่ระลึกได้เลย
     </p>
-  </form>
+
+    <form>
+      <label class="block text-gray-600 mb-1" for="email-login">Email</label>
+      <input
+        id="email-login"
+        type="email"
+        required
+        class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74]"
+      />
+
+      <label class="block text-gray-600 mb-1" for="password-login">Password</label>
+      <div class="relative">
+        <input
+          id="password-login"
+          [type]="passwordFieldType"
+          required
+          class="w-full p-3 border border-gray-300 rounded pr-10 focus:outline-none focus:ring-2 focus:ring-[#F97B74]"
+        />
+        <span
+          class="material-symbols-outlined absolute right-3 cursor-pointer select-none text-gray-500"
+          style="top: 50%; transform: translateY(-50%); font-size: 20px"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ passwordFieldType === "password" ? "visibility_off" : "visibility" }}
+        </span>
+      </div>
+
+      <div class="flex items-center justify-between mb-6 mt-6 text-sm text-gray-600">
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" class="accent-[#F97B74]" />
+          <span>จดจำไว้</span>
+        </label>
+        <a href="#" class="underline hover:text-[#e56769]">ลืมรหัสผ่าน?</a>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-[#F97B74] hover:bg-[#e56769] text-white py-3 rounded font-semibold transition"
+      >
+        Login
+      </button>
+
+      <p class="text-center text-gray-600 mt-6 text-sm">
+        New User?
+        <a
+          routerLink="/staff/register"
+          class="underline hover:text-[#e56769] cursor-pointer"
+        >Register Here</a>
+      </p>
+    </form>
+  </div>
 </div>

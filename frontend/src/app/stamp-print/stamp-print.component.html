@@ -1,0 +1,14 @@
+<div class="min-h-screen flex flex-col p-6">
+  <!-- PDF Viewer -->
+  <div class="flex-1">
+    <!-- ใช้ ngx-extended-pdf-viewer เพื่อแสดงผล PDF ภายในหน้า -->
+    <ngx-extended-pdf-viewer [src]="pdfUrl" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
+  </div>
+
+  <!-- Print Button -->
+  <div class="mt-4 flex justify-end">
+    <button class="btn bg-blue-500 text-white px-4 py-2 rounded" (click)="printPDF()">
+      <span class="material-symbols-outlined">print</span> ปริ้น
+    </button>
+  </div>
+</div>

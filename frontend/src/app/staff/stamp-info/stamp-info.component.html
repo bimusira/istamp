@@ -1,0 +1,96 @@
+<div class="min-h-screen bg-[#F9FAFB] flex">
+  <!-- Sidebar -->
+  <aside [class.w-20]="collapsed" [class.w-56]="!collapsed" class="bg-white shadow-md transition-all duration-300 p-4">
+    <!-- logo + toggle -->
+    <div class="flex items-center justify-between mb-6" *ngIf="!collapsed">
+      <img src="assets/logo.jpeg" alt="Logo" class="w-[55px] h-[55px]">
+      <button (click)="toggleSidebar()" class="text-[#979fad]">
+        <span class="material-symbols-outlined">menu_open</span>
+      </button>
+    </div>
+    <div class="flex flex-col gap-4 items-center" *ngIf="collapsed">
+      <button (click)="toggleSidebar()">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+
+    <!-- Menu -->
+    <nav class="space-y-2 text-[#979fad] mt-4">
+      <a class="flex items-center gap-2 w-full p-2 rounded-[10px] font-medium bg-gradient-to-r from-[#F34040] to-[#F97574] text-white"
+         [ngClass]="{ 'justify-center': collapsed }">
+        <span class="material-symbols-outlined text-[24px] text-white">dashboard</span>
+        <span *ngIf="!collapsed">เมนู</span>
+      </a>
+      <a class="flex items-center gap-2 w-full p-2 rounded-[10px] hover:bg-gray-100"
+         [ngClass]="{ 'justify-center': collapsed }">
+        <span class="material-symbols-outlined text-[24px]">edit_document</span>
+        <span *ngIf="!collapsed">ทำรายการ</span>
+      </a>
+      <a class="flex items-center gap-2 w-full p-2 rounded-[10px] hover:bg-gray-100"
+         [ngClass]="{ 'justify-center': collapsed }">
+        <span class="material-symbols-outlined text-[24px]">web_stories</span>
+        <span *ngIf="!collapsed">เทมเพลท</span>
+      </a>
+      <!-- Add link for 'ประวัติการปริ้น' -->
+      <a class="flex items-center gap-2 w-full p-2 rounded-[10px] hover:bg-gray-100"
+         [ngClass]="{ 'justify-center': collapsed }" [routerLink]="['/staff/stamp-print']">
+        <span class="material-symbols-outlined text-[24px]">history</span>
+        <span *ngIf="!collapsed">ประวัติการปริ้น</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <div class="p-5">
+      <!-- Header -->
+      <div class="flex justify-between mb-5">
+        <button class="btn bg-red-500 text-white px-4 py-2 rounded">ทำรายการ</button>
+      </div>
+
+      <!-- Search Bar and Additional Buttons -->
+      <div class="mb-6 flex items-center space-x-3">
+        <input type="text" class="input w-full max-w-xs" placeholder="ค้นหา..." (input)="onSearch($event)">
+        <!-- Calendar Button -->
+        <button class="btn bg-white text-black px-4 py-2 rounded" (click)="openCalendar()">
+          <span class="material-symbols-outlined">calendar_month</span>
+         
+        </button>
+        <!-- Refresh Button -->
+        <button class="btn bg-white text-black px-4 py-2 rounded" (click)="refreshData()">
+          <span class="material-symbols-outlined">refresh</span>
+        </button>
+      </div>
+
+      <!-- Table -->
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">ลำดับ</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">ชื่อลูกค้า</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">เบอร์โทรศัพท์</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">วัน/เวลา</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">สถานะ</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-600">รายละเอียด</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of stampData" class="border-b hover:bg-gray-50">
+            <td class="px-6 py-4">{{ item.id }}</td>
+            <td class="px-6 py-4">{{ item.name }}</td>
+            <td class="px-6 py-4">{{ item.phone }}</td>
+            <td class="px-6 py-4">{{ item.date }}</td>
+            <td class="px-6 py-4">
+              <span [ngClass]="{ 'flex text-green-500 bg-green-100 w-full': item.status === 'เสร็จสิ้น', 'flex text-blue-500 bg-blue-100 px-4 py-1.5 rounded-full': item.status === 'รอดำเนินการ' }">
+                {{ item.status }}
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <button class="text-blue-500" (click)="viewDetails(item)">{{ item.details }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
