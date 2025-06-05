@@ -7,7 +7,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StampInfoComponent } from './staff/stamp-info/stamp-info.component';  
+import { StampInfoComponent } from './staff/pages/stamp-info/stamp-info.component';  
 import { RouterModule } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  // นำเข้า NgxExtendedPdfViewerModule
 

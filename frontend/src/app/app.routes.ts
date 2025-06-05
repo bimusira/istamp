@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { StaffComponent } from './staff/staff.component';
 import { CustomerComponent } from './customer/customer.component';
-import { LoginComponent } from './staff/auth/login/login.component';
-import { RegisterComponent } from './staff/auth/register/register.component';
-import { StampInfoComponent } from './staff/stamp-info/stamp-info.component';
-import { StampPrintComponent } from './stamp-print/stamp-print.component';
+import { LoginComponent } from './staff/pages/auth/login/login.component';
+import { RegisterComponent } from './staff/pages/auth/register/register.component';
+import { StampInfoComponent } from './staff/pages/stamp-info/stamp-info.component';
+import { StampPrintComponent } from './staff/pages/stamp-print/stamp-print.component';
 
 export const routes: Routes = [
   // Login และ Register route แยกออกมาจาก StaffComponent
