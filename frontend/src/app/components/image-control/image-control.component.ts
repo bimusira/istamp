@@ -34,7 +34,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-image-control',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,

@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';   
+import { RouterModule,Router } from '@angular/router';   
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ImageControlComponent } from './components/image-control/image-control.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-root',
@@ -20,18 +20,9 @@ import { HttpClient } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    MatButtonModule,
   ],
-  template: `
-    <mat-toolbar color="primary"> จัดการรูปภาพ </mat-toolbar>
-
-    <div class="container" style="padding: 24px;">
-      <app-image-control
-        path="/profile-images/my-image"
-        (imageReady)="imageReady($event)"
-      ></app-image-control>
-
-      <router-outlet></router-outlet>   
-    </div>
+  template: ` <router-outlet></router-outlet>
   `,
   styles: [
     `
@@ -42,8 +33,13 @@ import { HttpClient } from '@angular/common/http';
   ],
 })
 export class AppComponent {
-  height = signal(250);
-  width = signal(250);
+  constructor(private router: Router) {}
+  
+   goTo(path:string) {
+    this.router.navigate([`/${path}`]);
+
+  // height = signal(250);
+ // width = signal(250);
 
   constructor(private http: HttpClient) { }
 
@@ -62,7 +58,8 @@ export class AppComponent {
     }
   }
 
-  imageReady(imageUrl: string) {
-    console.log('Firebase Uploaded Image: ', imageUrl);
-  }
+  //imageReady(imageUrl: string) {
+   // console.log('Firebase Uploaded Image: ', imageUrl);}
+
+  
 }
