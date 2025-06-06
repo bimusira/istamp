@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container bg-gray-100">
   <!-- Header -->
   <div class="header">
     <img src="assets/logo.jpeg" alt="Logo" class="logo" />
@@ -6,37 +6,59 @@
       <mat-icon>account_circle</mat-icon>
     </button>
   </div>
-
   <!-- Title -->
-  <h2 class="title">เลือก Template</h2>
+  <h2 class="title">เลือกแม่แบบ</h2>
 
   <!-- Template Cards Grid -->
-  <div class="grid">
-    <div  class="card" *ngFor="let card of cards" (click)="openModal(card)">
+<div class="grid">
+  <div class="card" *ngFor="let card of cards" (click)="openModal(card.slot)">
+    <div *ngIf="card.url; else defaultIcon" class="card-img-container">
+      <img [src]="card.url" alt="Card Image" class="card-img" />
+    </div>
+    <ng-template #defaultIcon>
       <mat-icon class="card-img">image</mat-icon>
-      <button class="upload-btn">
-        <mat-icon>add</mat-icon>
-      </button>
+    </ng-template>
+    <button class="upload-btn">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" style="display: none">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h3>เลือกแม่แบบ</h3>
+      <div class="template-image-container">
+        <div
+          class="template-image"
+          *ngFor="let template of templates; let i = index"
+          [class.selected]="selectedTemplateIndex === i"
+          (click)="selectTemplate(i)"
+        >
+        <span
+            class="material-symbols-outlined checkmark"
+            *ngIf="selectedTemplateIndex === i"
+          >
+            check
+          </span>
+        <img [src]="template.url" [src]="" alt="Template Image" />
+          
+        </div>
+      </div>
+      <button class="btn-confirm" (click)="selectedTemplate()">เลือก</button>
     </div>
   </div>
 
-    <!-- Modal -->
-    <div id="modal" class="modal" style="display: none; ">
-        <div class="modal-content">
-            <span class="close" (click)="closeModal()" >&times;</span>
-            <h3>เลือกแม่แบบ</h3>
-            <div class="template-image-container">
-                <img src="assets/IMG_7069.jpg" alt="Template Image" class="template-image">
-                <img src="assets/IMG_7070.jpg" alt="Template Image" class="template-image">
-                <img src="assets/IMG_7071.jpg" alt="Template Image" class="template-image">
-            </div>
-            <button class="btn-confirm" style="bottom: 0; right:4rem; position: fixed; margin: 8px;">เลือก</button>
-        </div>
-    </div>
-
   <!-- Footer Buttons -->
   <div class="footer">
-    <button routerLink="/customer/menu" (click)="delete_session()" class="btn-outline">ย้อนกลับ</button>
-    <button routerLink="/customer/uploader" class="btn-filled">ถัดไป</button>
+    <button
+      routerLink="/customer/menu"
+      (click)="delete_session()"
+      class="btn-outline"
+    >
+      ย้อนกลับ
+    </button>
+    <button (click)="check_filefull()" class="btn-filled">ถัดไป</button>
   </div>
 </div>
