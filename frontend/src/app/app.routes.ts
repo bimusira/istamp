@@ -5,8 +5,11 @@ import { LoginComponent } from './staff/pages/auth/login/login.component';
 import { RegisterComponent } from './staff/pages/auth/register/register.component';
 import { StampInfoComponent } from './staff/pages/stamp-info/stamp-info.component';
 import { StampPrintComponent } from './staff/pages/stamp-print/stamp-print.component';
+import { SelectTempComponent } from './customer/page/template/select-temp/select-temp.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
+  { path: '', component: HomeComponent },
   // Login และ Register route แยกออกมาจาก StaffComponent
   { path: 'staff/login', component: LoginComponent },
   { path: 'staff/register', component: RegisterComponent },
@@ -25,5 +28,8 @@ export const routes: Routes = [
   {
     path: 'customer',
     component: CustomerComponent,
+    children: [
+      { path: 'select-temp', component: SelectTempComponent },
+    ],
   },
 ];

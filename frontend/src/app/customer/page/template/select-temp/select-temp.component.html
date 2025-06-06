@@ -1,0 +1,28 @@
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <img src="assets/logo.jpeg" alt="Logo" class="logo" />
+    <button class="icon-btn">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+
+  <!-- Title -->
+  <h2 class="title">เลือก Template</h2>
+
+  <!-- Template Cards Grid -->
+  <div class="grid">
+    <div class="card" *ngFor="let card of cards">
+      <mat-icon class="card-img">image</mat-icon>
+      <button class="upload-btn">
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer Buttons -->
+  <div class="footer">
+    <button class="btn-outline">ย้อนกลับ</button>
+    <button class="btn-filled">ถัดไป</button>
+  </div>
+</div>

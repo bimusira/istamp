@@ -5,9 +5,11 @@ import { GcsService } from './gcs/gcs.service';
 import { GcsController } from './gcs/gcs.controller';
 import { UserController } from './user/user.controller';
 import { AuthModule } from './auth/auth.module';
+import { CustomerModule } from './customer/customer.module';
+
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule,CustomerModule],
   controllers: [AppController, GcsController, UserController],
   providers: [AppService, GcsService],
 })
