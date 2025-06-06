@@ -1,0 +1,89 @@
+<div class="flex flex-col px-4 gap-4">
+  <!-- Search Bar -->
+  <div class="flex items-center space-x-3 h-[40px] w-full">
+    <div class="relative h-full w-full">
+      <span
+        class="absolute inset-y-0 left-3 flex items-center text-gray-400 pointer-events-none"
+      >
+        <span class="material-symbols-outlined text-md">search</span>
+      </span>
+      <input
+        class="h-full w-full placeholder-gray-400 text-base shadow-md"
+        type="text"
+        placeholder="ค้นหา..."
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <!-- Refresh Button -->
+    <button
+      class="button-secondary h-full w-[64px] rounded-md shadow-md"
+      (click)="refreshData()"
+    >
+      <span class="material-symbols-outlined">refresh</span>
+    </button>
+
+    <button
+      class="button-secondary h-full w-[64px] rounded-md shadow-md"
+      (click)="openCalendar()"
+    >
+      <span class="material-symbols-outlined">calendar_month</span>
+    </button>
+
+    <button
+      class="button-primary w-full max-w-[120px] h-full rounded-md shadow-md"
+    >
+      ทำรายการ
+    </button>
+  </div>
+  <!-- Table -->
+  <div class="flex flex-col bg-white rounded-md px-6 py-4 shadow-md gap-2">
+    <!-- Head -->
+    <div
+      class="grid grid-cols-12 gap-2 text-base text-gray-500 border-b-2 border-gray-100 pb-4"
+    >
+      <div class="col-span-1">ลำดับ</div>
+      <div class="col-span-2">ชื่อลูกค้า</div>
+      <div class="col-span-2">เบอร์โทรศัพท์</div>
+      <div class="col-span-2">วัน/เวลา</div>
+      <div class="col-span-2">สถานะ</div>
+      <div class="col-span-2">รายละเอียด</div>
+      <div class="col-span-1 w-fit"></div>
+    </div>
+    <!-- Body -->
+    <div
+      *ngFor="let item of stampData"
+      class="grid grid-cols-12 gap-2 text-base text-gray-400 space-y-4 border-b-2 border-gray-100"
+    >
+      <div class="col-span-1">{{ item.id }}</div>
+      <div class="col-span-2">{{ item.name }}</div>
+      <div class="col-span-2">{{ item.phone }}</div>
+      <div class="col-span-2">{{ item.date }}</div>
+      <div class="col-span-2">
+        <span
+          class="badge rounded-full font-semibold px-2 py-1"
+          [ngClass]="
+            item.status === 'เสร็จสิ้น'
+              ? 'bg-green-100 text-green-600'
+              : 'bg-blue-100 text-blue-600'
+          "
+        >
+          {{ item.status }}
+        </span>
+      </div>
+      <div class="col-span-2">
+        <button
+          class="flex justify-center items-center bg-black text-white text-xs w-full max-w-[120px] h-[32px] rounded-md shadow-md"
+          (click)="viewDetails(item)"
+        >
+          {{ item.details }}
+        </button>
+      </div>
+      <div class="col-span-1 w-fit text-right">
+        <button class="text-gray-400 hover:text-red-500">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
