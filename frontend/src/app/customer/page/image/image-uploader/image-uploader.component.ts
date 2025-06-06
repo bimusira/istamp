@@ -45,7 +45,7 @@ export class ImageUploaderComponent implements OnInit {
     }
 
     const reader = new FileReader();
-    reader.onload = () => {
+  reader.onload = () => {
     this.cards[index].file = file;
     this.cards[index].preview = reader.result as string; // base64
   };
