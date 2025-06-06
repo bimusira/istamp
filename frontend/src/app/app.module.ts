@@ -6,15 +6,18 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StampInfoComponent } from './staff/pages/stamp-info/stamp-info.component';  
 import { RouterModule } from '@angular/router';
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  // นำเข้า NgxExtendedPdfViewerModule
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  
+import { RegisterComponent } from './staff/pages/auth/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StampInfoComponent  
+    StampInfoComponent,
+    RegisterComponent  // เพิ่ม RegisterComponent ที่นี่
   ],
   imports: [
     BrowserModule,
@@ -25,9 +28,12 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  // นำ
     MatInputModule,
     ReactiveFormsModule,
     RouterModule, 
-    NgxExtendedPdfViewerModule  
+    NgxExtendedPdfViewerModule,
+    FormsModule,
+    HttpClientModule  
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
