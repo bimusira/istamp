@@ -102,23 +102,25 @@
       เข้าสู่ระบบเพื่อทำการสร้างใบที่ระลึกได้เลย
     </p>
 
-    <form>
-      <label class="block text-gray-600 mb-1" for="email-login">Email</label>
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <label class="block text-gray-600 mb-1" for="email-login">อีเมล</label>
       <input
         id="email-login"
         type="email"
         required
+        [(ngModel)]="email"
+        name="email"
         class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74]"
       />
 
-      <label class="block text-gray-600 mb-1" for="password-login"
-        >Password</label
-      >
+      <label class="block text-gray-600 mb-1" for="password-login">รหัสผ่าน</label>
       <div class="relative">
         <input
           id="password-login"
           [type]="passwordFieldType"
           required
+          [(ngModel)]="password"
+          name="password"
           class="w-full p-3 border border-gray-300 rounded pr-10 focus:outline-none focus:ring-2 focus:ring-[#F97B74]"
         />
         <span
@@ -126,9 +128,7 @@
           style="top: 50%; transform: translateY(-50%); font-size: 20px"
           (click)="togglePasswordVisibility()"
         >
-          {{
-            passwordFieldType === "password" ? "visibility_off" : "visibility"
-          }}
+          {{ passwordFieldType === "password" ? "visibility_off" : "visibility" }}
         </span>
       </div>
 
@@ -150,11 +150,11 @@
       </button>
 
       <p class="text-center text-gray-600 mt-6 text-sm">
-        New User?
+        ผู้ใช้ใหม่?
         <a
           routerLink="/staff/register"
           class="underline hover:text-[#e56769] cursor-pointer"
-          >Register Here</a
+          >ลงทะเบียนที่นี่</a
         >
       </p>
     </form>
