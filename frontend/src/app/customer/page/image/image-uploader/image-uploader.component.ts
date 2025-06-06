@@ -44,21 +44,29 @@ export class ImageUploaderComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('slotIndex', index.toString());
+    const reader = new FileReader();
+    reader.onload = () => {
+    this.cards[index].file = file;
+    this.cards[index].preview = reader.result as string; // base64
+  };
+  reader.readAsDataURL(file);
 
-    this.http.post<UploadResultDto>('/api/customer/upload-image', formData)
-      .subscribe({
-        next: (result) => {
-          this.cards[index].file = file;
-          this.cards[index].preview = result.url;
-          this.toastSuccess('อัปโหลดสำเร็จ');
-        },
-        error: (err) => {
-          this.toastFail('อัปโหลดล้มเหลว');
-        }
-      });
+    // const formData = new FormData();
+    // formData.append('file', file);
+    // formData.append('slotIndex', index.toString());
+    // console.log('Uploading file:', file.name, 'to slot:', index); 
+
+    // this.http.post<UploadResultDto>('/api/customer/upload-image', formData)
+    //   .subscribe({
+    //     next: (result) => {
+    //       this.cards[index].file = file;
+    //       this.cards[index].preview = result.url;
+    //       this.toastSuccess('อัปโหลดสำเร็จ');
+    //     },
+    //     error: (err) => {
+    //       this.toastFail('อัปโหลดล้มเหลว');
+    //     }
+    //   });
   }
 
   isAllSlotFull() {
