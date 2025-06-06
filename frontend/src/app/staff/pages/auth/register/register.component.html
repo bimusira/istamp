@@ -99,7 +99,7 @@
     </h2>
     <p class="text-center text-gray-500 mb-6 text-sm">สำหรับเจ้าหน้าที่</p>
 
-    <form>
+    <form (ngSubmit)="register()" #registerForm="ngForm" novalidate>
       <label class="block text-gray-600 mb-1" for="username-register"
         >Username</label
       >
@@ -107,16 +107,34 @@
         id="username-register"
         type="text"
         required
+        name="username"
+        [(ngModel)]="username"
+        #usernameInput="ngModel"
         class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
       />
+      <div
+        *ngIf="usernameInput.invalid && usernameInput.touched"
+        class="text-red-500 text-sm mb-4"
+      >
+        กรุณากรอก Username
+      </div>
 
       <label class="block text-gray-600 mb-1" for="email-register">Email</label>
       <input
         id="email-register"
         type="email"
         required
+        name="email"
+        [(ngModel)]="email"
+        #emailInput="ngModel"
         class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
       />
+      <div
+        *ngIf="emailInput.invalid && emailInput.touched"
+        class="text-red-500 text-sm mb-4"
+      >
+        กรุณากรอก Email ให้ถูกต้อง
+      </div>
 
       <label class="block text-gray-600 mb-1" for="password-register"
         >Password</label
@@ -126,6 +144,9 @@
           id="password-register"
           [type]="passwordFieldType"
           required
+          name="password"
+          [(ngModel)]="password"
+          #passwordInput="ngModel"
           class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
         />
         <span
@@ -138,6 +159,12 @@
           }}
         </span>
       </div>
+      <div
+        *ngIf="passwordInput.invalid && passwordInput.touched"
+        class="text-red-500 text-sm mb-4"
+      >
+        กรุณากรอก Password
+      </div>
 
       <label class="block text-gray-600 mb-1" for="confirm-password-register"
         >Confirm Password</label
@@ -147,6 +174,9 @@
           id="confirm-password-register"
           [type]="confirmPasswordFieldType"
           required
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          #confirmPasswordInput="ngModel"
           class="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-[#F97B74] pr-10"
         />
         <span
@@ -161,10 +191,17 @@
           }}
         </span>
       </div>
+      <div
+        *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched"
+        class="text-red-500 text-sm mb-4"
+      >
+        กรุณากรอก Confirm Password
+      </div>
 
       <button
         type="submit"
-        class="w-full bg-[#F97B74] hover:bg-[#e56769] text-white py-3 rounded font-semibold transition"
+        [disabled]="registerForm.invalid"
+        class="w-full bg-[#F97B74] hover:bg-[#e56769] text-white py-3 rounded font-semibold transition disabled:opacity-50"
       >
         Register
       </button>
@@ -176,6 +213,10 @@
           class="underline hover:text-[#e56769] cursor-pointer"
           >Login now</a
         >
+      </p>
+
+      <p *ngIf="errorMessage" class="text-red-500 mt-4 text-center">
+        {{ errorMessage }}
       </p>
     </form>
   </div>

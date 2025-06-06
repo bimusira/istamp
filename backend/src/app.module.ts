@@ -4,12 +4,27 @@ import { AppService } from './app.service';
 import { GcsService } from './gcs/gcs.service';
 import { GcsController } from './gcs/gcs.controller';
 import { UserController } from './user/user.controller';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './staff/auth/auth.module';
 import { CustomerModule } from './customer/customer.module';
-
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule,CustomerModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule], // นำเข้า ConfigModule
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('DB_URI'), 
+      }),
+      inject: [ConfigService],
+    }),
+    AuthModule,
+    CustomerModule,
+  ],
   controllers: [AppController, GcsController, UserController],
   providers: [AppService, GcsService],
 })
