@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -23,7 +23,7 @@ export class ImageUploaderComponent implements OnInit {
   cards: { file?: File; preview?: string }[] = [];
   amount = 0;
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit() {
     this.amount = Number(sessionStorage.getItem('amount') || '0');
@@ -43,6 +43,7 @@ export class ImageUploaderComponent implements OnInit {
       this.toastFail(`ระบบไม่รองรับไฟล์ ${file.type}`);
       return;
     }
+
 
     const reader = new FileReader();
   reader.onload = () => {
@@ -71,6 +72,17 @@ export class ImageUploaderComponent implements OnInit {
 
   isAllSlotFull() {
     return this.cards.every(card => !!card.preview);
+  }
+
+  // --------- (เพิ่ม) ฟังก์ชันรวมไฟล์ทั้งหมดเป็นลิสต์ ---------
+  getUploadedFiles(): File[] {
+    return this.cards.filter(card => !!card.file).map(card => card.file as File);
+  }
+
+  // --------- (เพิ่ม) ฟังก์ชันไปหน้าแก้ไขและส่งไฟล์เป็นลิสต์ ---------
+  onNext() {
+    const files = this.getUploadedFiles();
+    this.router.navigate(['/customer/editor'], { state: { images: files } });
   }
 
   toastSuccess(message: string) {

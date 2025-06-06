@@ -13,6 +13,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { RegisterComponent } from './staff/pages/auth/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     NgxExtendedPdfViewerModule,
     FormsModule,
     HttpClientModule,
+    ImageCropperComponent,
     MatSnackBarModule 
   ],
   providers: [],

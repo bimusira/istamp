@@ -30,7 +30,11 @@
   <!-- Footer Buttons -->
   <div class="footer">
     <button routerLink="/customer/select-temp" class="btn-outline">ย้อนกลับ</button>
-    <button routerLink="/customer/editor" class="btn-filled">ถัดไป</button> 
-    <!--  [disabled]="!isAllSlotFull()" -->
+    <!-- --------- (เปลี่ยน) จาก routerLink เป็น (click) onNext --------- -->
+    <button 
+      (click)="onNext()" 
+      class="btn-filled" 
+      [disabled]="!isAllSlotFull()"
+    >ถัดไป</button>
   </div>
 </div>
