@@ -10,6 +10,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StampInfoComponent } from './staff/pages/stamp-info/stamp-info.component';  
 import { RouterModule } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  // นำเข้า NgxExtendedPdfViewerModule
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  // นำ
     MatInputModule,
     ReactiveFormsModule,
     RouterModule, 
-    NgxExtendedPdfViewerModule  
+    NgxExtendedPdfViewerModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
