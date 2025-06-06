@@ -1,7 +1,6 @@
 .container {
-  max-width: 414px; /* typical mobile width */
+  max-width: 414px; 
   margin: 0 auto;
-  padding: 16px;
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
@@ -13,6 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
+  padding: 16px;
 }
 
 .logo {
