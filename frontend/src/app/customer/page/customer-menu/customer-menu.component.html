@@ -1,13 +1,15 @@
-<div class="flex flex-col items-center min-h-screen bg-gray-100">
+<div class="flex flex-col min-h-screen bg-gray-100 container">
   
-  <div class="w-full flex items-center justify-between px-4 py-3 bg-white shadow">
-    <!-- <img src="assets/logo.png" alt="Logo" class="h-10" /> -->
-    <span class="text-gray-500"><i class="fa fa-file"></i></span>
+  <div class="header">
+    <img src="assets/logo.jpeg" alt="Logo" class="logo" />
+    <button class="icon-btn">
+      <mat-icon>account_circle</mat-icon>
+    </button>
   </div>
 
  
   <div class="flex-1 flex flex-col justify-center items-center">
-    <h2 class="text-xl font-bold mb-6 mt-12">เลือกจำนวนรายการ</h2>
+    <h2 class=" mb-6 mt-12">เลือกจำนวนรายการ</h2>
     <div class="flex flex-col gap-4 w-64">
       <button
         *ngFor="let n of [1,2,3,4,5]"
