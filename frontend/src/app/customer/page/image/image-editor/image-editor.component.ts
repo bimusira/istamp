@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CropperDialogComponent, CropperDialogResult } from '../../../../components/cropper-dialog/cropper-dialog.component';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-image-editor',
-  imports: [MatIconModule, CommonModule, RouterModule],
+  imports: [MatIconModule, CommonModule, RouterModule, ImageCropperComponent],
   standalone: true,
   templateUrl: './image-editor.component.html',
   styleUrl: './image-editor.component.css'
@@ -16,48 +16,66 @@ import { CropperDialogComponent, CropperDialogResult } from '../../../../compone
 
 export class ImageEditorComponent {
   images: File[] = [];         
-  editedImages: Blob[] = [];    
-  currentIndex = 0;             
+  editedImages: Blob[] = [];         
+  brightnessList: number[] = [];
+  cropList: any[] = [];
+  currentIndex = 0;
+  showCropper = true;        
 
   constructor(private router: Router, private dialog: MatDialog) {
     const nav = this.router.getCurrentNavigation();
     const files = nav?.extras.state?.['images'];
     if (Array.isArray(files) && files[0] instanceof File) {
       this.images = files as File[];
+      this.brightnessList = new Array(this.images.length).fill(1);
+      this.cropList = new Array(this.images.length).fill(undefined);
+      this.editedImages = new Array(this.images.length).fill(undefined);
     }
   }
 
-  ngOnInit() {
-    if (this.images.length > 0) {
-      this.openCropperDialog(this.images[0]);
+  get brightness() {
+  return this.brightnessList[this.currentIndex] || 1;
+  }
+
+  onBrightnessChange(event: any) {
+  this.brightnessList[this.currentIndex] = +event.target.value;
+  }
+
+  resetBrightness() {
+    this.brightnessList[this.currentIndex] = 1;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+  if (event.blob) {
+    this.editedImages[this.currentIndex] = event.blob;
+  }
+  this.cropList[this.currentIndex] = event.cropperPosition;
+  }
+
+  isLastImage() {
+    return this.currentIndex === this.images.length - 1;
+  }
+
+  goBack() {
+    if (this.currentIndex > 0) {
+      this.showCropper = false;
+      setTimeout(() => {
+        this.currentIndex--;
+        this.showCropper = true;
+      }, 0);
     }
   }
 
-  openCropperDialog(image: File) {
-    const dialogRef = this.dialog.open(CropperDialogComponent, {
-      data: {
-        image: image,
-        width: 390,
-        height: 354
-      },
-      width: '1000px',
-      height: '1000px',
-      maxWidth: '95vw',
-      maxHeight: '95vh',
-    });
-
-    dialogRef.afterClosed().subscribe((result: CropperDialogResult) => {
-      if (result) {
-        this.editedImages[this.currentIndex] = result.blob;
-        if (this.currentIndex < this.images.length - 1) {
-          this.currentIndex++;
-          this.openCropperDialog(this.images[this.currentIndex]);
-        } else {
-          this.finishAllImages();
-        }
-      }
-    });
+  nextImage() {
+    if (this.currentIndex < this.images.length - 1) {
+      this.showCropper = false;
+      setTimeout(() => {
+        this.currentIndex++;
+        this.showCropper = true;
+      }, 0);
+    }
   }
+
 
   finishAllImages() {
     this.router.navigate(['/customer/preview'], { state: { images: this.editedImages } });

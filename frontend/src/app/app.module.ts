@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  // นำเข้า NgxExtendedPdfViewerModule
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ImageCropperComponent } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RouterModule, 
     NgxExtendedPdfViewerModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ImageCropperComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
