@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.2.11",
+    "@angular/animations": "^19.2.14",
     "@angular/cdk": "^19.2.16",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
@@ -25,6 +25,7 @@
     "@tailwindcss/postcss": "^4.1.7",
     "ngx-extended-pdf-viewer": "^23.3.1",
     "ngx-image-cropper": "^9.1.5",
+    "ngx-toastr": "^19.0.0",
     "pdfjs-dist": "^5.3.31",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",

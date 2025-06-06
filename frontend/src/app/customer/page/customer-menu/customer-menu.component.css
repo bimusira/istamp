@@ -1,0 +1,36 @@
+.container {
+  max-width: 414px; 
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 16px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex-grow: 1;
+  justify-items: center;
+  align-items: center;
+}

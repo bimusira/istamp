@@ -69,13 +69,19 @@
   position: absolute;
   bottom: -8px;
   right: -8px;
-  background-color: #ff7043;
+  background-color: #f34040;
   border-radius: 100%;
   padding: 4px;
   border: none;
   color: white;
   font-size: 16px;
   cursor: pointer;
+}
+
+.delete-btn {
+  left: -8px !important;
+  right: auto !important;
+  background: #f44336 !important;
 }
 
 .footer {
@@ -99,3 +105,6 @@
   border-radius: 8px;
   border: none;
 }
+
+.snack-success { background: #4caf50 !important; color: #fff !important; }
+.snack-fail { background: #f44336 !important; color: #fff !important; }

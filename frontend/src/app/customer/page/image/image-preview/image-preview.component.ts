@@ -10,6 +10,6 @@ import { RouterModule } from '@angular/router';
   templateUrl: './image-preview.component.html',
   styleUrl: './image-preview.component.css'
 })
-export class CustomerPreviewComponent {
+export class ImagePreviewComponent {
 
 }

@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [RouterModule, MatButtonModule],
   template: `
     <h2>เลือกหน้า Demo</h2>
-    <button mat-raised-button color="primary" (click)="goTo('staff')">Staff</button>
+    <button mat-raised-button color="primary" (click)="goTo('staff/login')">Staff</button>
     <button mat-raised-button color="accent" (click)="goTo('customer')">Customer</button>
   `,
   styles:[ `

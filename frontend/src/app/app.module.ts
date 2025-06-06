@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';  
 import { RegisterComponent } from './staff/pages/auth/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule, 
     NgxExtendedPdfViewerModule,
     FormsModule,
-    HttpClientModule  
+    HttpClientModule,
+    MatSnackBarModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

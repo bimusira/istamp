@@ -12,12 +12,17 @@
 
   <!-- Template Cards Grid -->
   <div class="grid">
-    <div class="card" *ngFor="let card of cards">
-      <mat-icon class="card-img">image</mat-icon>
+    <div class="card" *ngFor="let card of cards; let i = index" (click)="fileInput.click()">
+      <ng-container *ngIf="!card.preview; else showImg">
+        <mat-icon class="card-img">image</mat-icon>
+      </ng-container>
+      <ng-template #showImg>
+        <img [src]="card.preview" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />
+      </ng-template>
+      <!-- input file (hidden) -->
+      <input type="file" accept="image/png,image/jpeg" hidden (change)="onFileSelected($event, i)" #fileInput />
       <button class="upload-btn">
-        <span class="material-symbols-outlined">
-upload
-</span>
+        <span class="material-symbols-outlined">upload</span>
       </button>
     </div>
   </div>
@@ -25,6 +30,7 @@ upload
   <!-- Footer Buttons -->
   <div class="footer">
     <button routerLink="/customer/select-temp" class="btn-outline">ย้อนกลับ</button>
-    <button routerLink="/customer/editor" class="btn-filled">ถัดไป</button>
+    <button routerLink="/customer/editor" class="btn-filled">ถัดไป</button> 
+    <!--  [disabled]="!isAllSlotFull()" -->
   </div>
 </div>
