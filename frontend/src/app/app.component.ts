@@ -2,7 +2,6 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule,Router } from '@angular/router';   
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ImageControlComponent } from './components/image-control/image-control.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +21,9 @@ import { HttpClient } from '@angular/common/http';
     MatButtonModule,
   ],
   template: `
-  <router-outlet></router-outlet>`,
+
+      <router-outlet></router-outlet>   
+  `,
   styles: [
     `
       .container {
@@ -32,6 +33,7 @@ import { HttpClient } from '@angular/common/http';
   ],
 })
 export class AppComponent {
+
   constructor(private http: HttpClient) {}
   
   // height = signal(250);

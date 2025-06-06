@@ -1,0 +1,21 @@
+input {
+  background-color: #fff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  outline: none;
+  border: none;
+  padding: 0 0 0 48px;
+}
+
+input:focus {
+  border: solid 2px #f34040;
+  outline: none;
+}
+
+.badge{
+  display: flex;
+  max-width: 120px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+ }
